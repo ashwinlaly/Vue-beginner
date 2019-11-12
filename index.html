@@ -33,6 +33,33 @@
                 </p>
             </template>
             <!-- <a v-bind:href="link" >Google </a> -->
+            <template>
+                <div>
+                    <ul>
+                        <li v-for="(name, i) of names">{{name}} - {{i}}</li>
+                    </ul>
+                </div>
+            </template>
+            <template>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <td>
+                                Name
+                            </td>
+                            <td>
+                                Age
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="intro of intros">
+                            <td>{{intro.name}}</td>
+                            <td>{{intro.age}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </template>
         </div>
     </body>
     <script>
@@ -44,7 +71,31 @@
                 age : 22,
                 number : 0,
                 count : 1,
-                btnState : false
+                btnState : false,
+                names : [
+                    "Allwin",
+                    "Ashwin",
+                    "Joel",
+                    "Jismon"
+                ],
+                intros : [
+                    {
+                        name : "Allwin",
+                        age : "27"
+                    },
+                    {
+                        name : "Ashwin",
+                        age : 22
+                    },
+                    {
+                        name : "Joel",
+                        age : 14
+                    },
+                    {
+                        name : "Jismon",
+                        age : 10
+                    }
+                ]
             },
             methods : {
                 textChange : (e) => {
