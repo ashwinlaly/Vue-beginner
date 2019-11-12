@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title>First Monster Game</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <style>
+        .card {
+            border: 1px black solid;
+        }
+    </style>
+    <body>
+        <div id="App">
+            <div class="card">
+                <div>Me {{myScore}}</div>
+                <div>Monster {{monsterScore}}</div>
+            </div>
+            <div v-if="!gameStartedState">
+                <button @click="startGame()">Start Game</button>
+            </div>
+            <div v-if="gameStartedState">
+                <button @click="attack()">Attack</button>
+                <button @click="specialAttack()">Special Attack</button>
+                <button @click="heal()">Heal</button>
+                <button @click="quitGame()">Quit</button>
+            </div>
+            <template>
+                <div v-for="gameLog of gameLogs">
+                    <span>{{gameLog.user}}</span> &nbsp; <span>{{gameLog.monster}}</span>
+                </div>
+            </template>
+        </div>
+    </body>
+    <script>
+        var app = new Vue({
+            el : "#App",
+            data : {
+                myScore : 100,
+                monsterScore : 100,
+                gameStartedState : false,
+                gameLogs : [],
+                healAttempt : 0
+            },
+            methods : {
+                startGame : function() {
+                    this.gameStartedState = !this.gameStartedState;
+                },
+                attack : function () {
+                    if((this.myScore > 0) && (this.monsterScore > 0)) {
+                        let power1 = Math.max(Math.round(Math.random() * 10),2);
+                        let power2 = Math.max(Math.round(Math.random() * 10),2);
+                        ((this.myScore - power1) <= 0) ? this.myScore = 0 : this.myScore = this.myScore - power1;
+                        ((this.monsterScore - power2) <= 0) ? this.monsterScore = 0 : this.monsterScore = this.monsterScore - power2;
+                        var data = {
+                            user : `user had an attack ${power1}`,
+                            monster : `Monster had an attack ${power2}`
+                        };
+                        this.gameLogs.push(data);
+                        if(this.monsterScore == 0){
+                            alert("You Win");
+                            this.quitGame();
+                        }
+                    } else if(this.myScore == 0){
+                        alert("You Lose");
+                        this.quitGame();
+                    } else if(this.monsterScore == 0){
+                        alert("You Win");
+                        this.quitGame();
+                    }
+                },
+                specialAttack : function () {
+                    if(this.monsterScore > 0) {
+                        let power = Math.max(Math.round(Math.random() * 10), 2);
+                        ((this.monsterScore - power) <= 0) ? this.monsterScore = 0 : this.monsterScore = this.monsterScore - power;
+                        var data = {
+                            user : ``,
+                            monster : `Monster had an attack ${power}`
+                        };
+                        this.gameLogs.push(data);
+                        if(this.monsterScore == 0){
+                            alert("You Win");
+                            this.quitGame();
+                        }
+                    } else if(this.monsterScore == 0){
+                        alert("You Win");
+                        this.quitGame();
+                    }
+                },
+                heal : function() {
+                    if(this.myScore < 100){
+                        let power = Math.max(Math.round(Math.random() * 10), 2);
+                        ((this.myScore + power) >= 100) ? this.myScore = 100 : this.myScore = this.myScore + power;
+                        var data = {
+                            user : `user healed with ${power}`,
+                            monster : ``
+                        };
+                        this.gameLogs.push(data);
+                    }
+                },
+                quitGame : function() {
+                    this.myScore = 100;
+                    this.monsterScore = 100;
+                    this.gameStartedState = false;
+                    this.gameLogs = [];
+                }
+            }
+        });
+    </script>
+</html>

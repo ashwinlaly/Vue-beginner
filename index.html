@@ -36,7 +36,7 @@
             <template>
                 <div>
                     <ul>
-                        <li v-for="(name, i) of names">{{name}} - {{i}}</li>
+                        <li v-for="(name, i) of names" :key="i">{{name}} - {{i}}</li>
                     </ul>
                 </div>
             </template>
@@ -108,6 +108,7 @@
                     this.number = Math.round(Math.random(1,0) * 1);
                 },
                 counter : function() {
+                    this.names.push(this.title);
                     this.btnState = !this.btnState;
                     return this.count++;
                 }
