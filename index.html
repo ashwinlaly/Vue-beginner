@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>First</title>
+        <style>
+            .btn {
+                background-color: cornflowerblue;
+                border-radius: 2%;
+            }
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="App">
+            Name :{{ name }} <br/>
+            Age : {{ age*3 }} <br/>
+            Random : {{ number }} <br/>
+            Counter : {{ count }} <br/>
+            <button @click="counter" :class='{btn : btnState}'>Click</button>
+            <input type="text" name="name" v-model="title" v-on:keyup.enter.space="textChange"/>
+            <!-- Include and Exclude from the DOM -->
+            <template>
+                <p v-if=btnState>
+                    Hello
+                </p>
+                <p v-else>
+                    World
+                </p>
+            </template>
+            <!-- Hide / Show Behaviour -->
+            <template>
+                <p v-show=btnState>
+                    Hello World
+                </p>
+            </template>
+            <!-- <a v-bind:href="link" >Google </a> -->
+        </div>
+    </body>
+    <script>
+        var app = new Vue({
+            el : "#App",
+            data : {
+                title : "First App",
+                name : "Ashwin",
+                age : 22,
+                number : 0,
+                count : 1,
+                btnState : false
+            },
+            methods : {
+                textChange : (e) => {
+                    console.log(e.target.value);
+                },
+                sayHello : () => {
+                    return this.title;
+                },
+                random : function() {
+                    this.number = Math.round(Math.random(1,0) * 1);
+                },
+                counter : function() {
+                    this.btnState = !this.btnState;
+                    return this.count++;
+                }
+            }
+        });
+    </script>
+</html>
