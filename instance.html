@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title></title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="App1">
+            {{title}}
+        </div>
+        <div id="App2">
+            {{title}}
+        </div>
+    </body>
+    <script>
+        var App1 = new Vue({
+            el : "#App1",
+            data : {
+                title : "App1"
+            }
+        });
+        var App2 = new Vue({
+            el : "#App2",
+            data : {
+                title : "App2"
+            }
+        });
+    </script>
+</html>

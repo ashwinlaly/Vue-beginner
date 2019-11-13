@@ -10,6 +10,7 @@
     </style>
     <body>
         <div id="App">
+            <h1 style="text-align: center;">{{upperCaseTitle}}</h1>
             <div class="card">
                 <div>Me {{myScore}}</div>
                 <div>Monster {{monsterScore}}</div>
@@ -34,6 +35,7 @@
         var app = new Vue({
             el : "#App",
             data : {
+                title : "Me Vs Monster",
                 myScore : 100,
                 monsterScore : 100,
                 gameStartedState : false,
@@ -90,6 +92,18 @@
                 gameLogger: function(user, monster) {
                     var data = { user, monster };
                     this.gameLogs.push(data);
+                }
+            },
+            // Computed are used like data, But they're actually a function which only returns data
+            computed : {
+                upperCaseTitle : function() {
+                    return this.title.toUpperCase();
+                }
+            },
+            // Executes when there's a change in data which're included
+            watch : {
+                gameStartedState : function() {
+                    console.log(`Change In state`)
                 }
             }
         });
